@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# names of migration files first 14 digits are numbers
+def filter_and_reverse_sort_versions
+  ARGV.map { |arg| arg.scan(%r{db/migrate/(\d{14})}) }.flatten
+end
+
+def terminate_script_if_no_migrations(versions)
+  return unless versions.empty?
+
+  puts 'no migrations inside PR ヽ(ˇヘˇ)ノ'
+  exit 0
+end
+
+def roll_down_migrations(versions)
+  versions.each do |version|
+    unless system("bundle exec rake db:migrate:down VERSION=#{version}")
+      puts "ERROR: rolling down migration VERSION=#{version} failed! ୧((#Φ益Φ#))୨"
+      exit 1
+    end
+  end
+  puts 'all migration roll downs succeeded ! (♡°▽°♡)'
+end
+
+def roll_up_migrations
+  puts 'rolling up migrations'
+  unless system('bundle exec rake db:migrate')
+    puts 'ERROR: rolling up migrations ლ(ಠ_ಠ ლ) '
+    exit 1
+  end
+  puts 'perfect: you rock! ☆*:.｡.o(≧▽≦)o.｡.:*☆'
+  exit 0
+end
+
+versions = filter_and_reverse_sort_versions
+terminate_script_if_no_migrations(versions)
+roll_down_migrations(versions)
+roll_up_migrations
