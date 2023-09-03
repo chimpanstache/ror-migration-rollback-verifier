@@ -8,5 +8,5 @@ inputs:
 runs:
   using: "composite"
   steps:  
-    run: ./script/ror_migration_rollback_verifier {{ inputs.committed-files }}
-    shell: bash
+    - run: ./script/ror_migration_rollback_verifier {{ inputs.committed-files }}
+      shell: bash
