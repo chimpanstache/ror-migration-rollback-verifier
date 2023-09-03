@@ -12,7 +12,7 @@ def terminate_script_if_no_migrations(versions)
   puts 'no migrations inside PR ヽ(ˇヘˇ)ノ'
   exit 0
 end
-
+  
 def roll_down_migrations(versions)
   versions.each do |version|
     unless system("bundle exec rake db:migrate:down VERSION=#{version}")
