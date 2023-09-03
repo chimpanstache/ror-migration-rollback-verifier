@@ -1,8 +1,12 @@
 
-name: Ruby on Rails migration files rollback verifier
-description: Checks that your migration files are rolling back successfully
+name: 'Ruby on Rails migration files rollback verifier'
+description: 'Checks that your migration files are rolling back successfully'
+inputs:
+  committed-files:
+    description: 'Files in the commit'
+    required: true
 runs:
   using: "composite"
   steps:  
-    - run: ./script/ror_migration_rolldown_verifier ${{ steps.changed-files.outputs.all_changed_files }}
+    - run: ./script/ror_migration_rolldown_verifier ${{ inputs.committed-files }}
     - shell: bash
