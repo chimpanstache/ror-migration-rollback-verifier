@@ -11,5 +11,5 @@ runs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.2' 
-    - run: ror_migration_rollback_verifier {{ inputs.committed-files }}
+    - run: ruby ror_migration_rollback_verifier {{ inputs.committed-files }}
       shell: bash
