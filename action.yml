@@ -6,3 +6,4 @@ runs:
   steps:
    - run: |
         ./script/ror_migration_rolldown_verifier ${{ steps.changed-files.outputs.all_changed_files }}
+      shell: zsh
