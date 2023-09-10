@@ -1,6 +1,6 @@
 # Ruby on Rails Migration Rollback Verifier
 
-##### This script aimed for github actions, verifies that migration files are not breaking when rolled down.
+#### This script aimed for github actions, verifies that migration files are not breaking when rolled down.
 
 It scans your commit files for migration files. 
 If any, roll them down with `rake db:migrate:down`
