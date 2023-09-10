@@ -12,7 +12,14 @@ Otherwise it exits with status code 1.
 chmod +x the script file  
 In your workflow file add the following lines:  
 ```
-- name: Migration Rollback Verifier
-run: |
-    ./<ror_migration_rollback_verifier_path> ${{ steps.changed-files.outputs.all_changed_files }}
+- uses: actions/checkout@v3
+    with:
+        fetch-depth: 0
+    - name: Set up Ruby
+    uses: ruby/setup-ruby@v1
+    with:
+        bundler-cache: true
+    - name: Migration Rollback Verifier
+    run: |
+        ./<ror_migration_rollback_verifier_path> ${{ steps.changed-files.outputs.all_changed_files }}
 ```
